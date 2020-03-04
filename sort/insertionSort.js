@@ -13,5 +13,4 @@ function insertionSort(array) {
     i++;
   }
   return array;
-  // Write your code here.
 }
