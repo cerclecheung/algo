@@ -42,3 +42,14 @@ const findNextWords = (source, words) => {
   }
   return nextWords;
 };
+
+const findShortestPath = (source, target, words) => {
+  let counter = 0;
+  if (source === target) {
+    counter++;
+  } else {
+    let newSourceList = findNextWords(source, words);
+  }
+
+  return counter;
+};
