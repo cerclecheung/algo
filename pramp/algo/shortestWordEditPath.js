@@ -49,6 +49,11 @@ const findShortestPath = (source, target, words) => {
     counter++;
   } else {
     let newSourceList = findNextWords(source, words);
+    if (newSourceList.length===0){
+      return -1
+    }else{
+      counter = counter 
+    }
   }
 
   return counter;
