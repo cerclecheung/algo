@@ -26,6 +26,3 @@ function helper(length, newIdx) {
   }
   return newIdx;
 }
-
-// Do not edit the line below.
-exports.hasSingleCycle = hasSingleCycle;
