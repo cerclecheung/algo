@@ -27,15 +27,15 @@ function riverSizes(matrix) {
 }
 const helper = (matrix, row, col, checkedArr) => {
   let neighbors = [];
-  let rowBo = matrix.length;
-  let colBo = matrix[0].length;
+  let rowBoundary = matrix.length;
+  let colBoundary = matrix[0].length;
   let newRow = row + 1;
   let newCol = col;
   if (
-    newCol < colBo &&
+    newCol < colBoundary &&
     newCol >= 0 &&
     newRow >= 0 &&
-    newRow < rowBo &&
+    newRow < rowBoundary &&
     matrix[newRow][newCol] === 1 &&
     !checkedArr.includes(`${newRow}:${newCol}`)
   ) {
@@ -43,10 +43,10 @@ const helper = (matrix, row, col, checkedArr) => {
   }
   newRow = row - 1;
   if (
-    newCol < colBo &&
+    newCol < colBoundary &&
     newCol >= 0 &&
     newRow >= 0 &&
-    newRow < rowBo &&
+    newRow < rowBoundary &&
     matrix[newRow][newCol] === 1 &&
     !checkedArr.includes(`${newRow}:${newCol}`)
   ) {
@@ -55,10 +55,10 @@ const helper = (matrix, row, col, checkedArr) => {
   newRow = row;
   newCol = col + 1;
   if (
-    newCol < colBo &&
+    newCol < colBoundary &&
     newCol >= 0 &&
     newRow >= 0 &&
-    newRow < rowBo &&
+    newRow < rowBoundary &&
     matrix[newRow][newCol] === 1 &&
     !checkedArr.includes(`${newRow}:${newCol}`)
   ) {
@@ -66,10 +66,10 @@ const helper = (matrix, row, col, checkedArr) => {
   }
   newCol = col - 1;
   if (
-    newCol < colBo &&
+    newCol < colBoundary &&
     newCol >= 0 &&
     newRow >= 0 &&
-    newRow < rowBo &&
+    newRow < rowBoundary &&
     matrix[newRow][newCol] === 1 &&
     !checkedArr.includes(`${newRow}:${newCol}`)
   ) {
