@@ -16,59 +16,59 @@ function boggleBoard(board, words) {
         }
       }
     } else {
-      // length>1
-      // this is for finding the first letter and get all the positions
-      let letterPos = findLetterInBoard(board, word[0]);
-      // given the first letter postition, looking for its neighbors that equal the second letter
-      letterPos.forEach(firstPo => {
-        let neighborsPo = findNeighbors(board, firstPo, word[1]);
-        if (neighborsPo.length > 0) {
-          let direction;
-          neighborsPo.forEach(secondPo => {
-            direction = [secondPo[0] - firstPo[0], secondPo[1] - firstPo[1]];
-            let idx = 2;
-            let rolPo = secondPo[0] + direction[0];
-            let colPo = secondPo[1] + direction[1];
-            while (idx < word.length && board[rolPo][colPo] === word[idx]) {
-              rolPo += direction[0];
-              colPo += direction[1];
-              idx++;
-            }
-            if (idx === word.length && !returnArr.includes(word)) {
-              returnArr.push(word);
-            }
-          });
-        }
+      let firstLetterPos = findLetterInBoard(board, word[0]);
+      let success = firstLetterPos.some(firstPo => {
+        let prevArr = [`${firstPo[0]}:${firstPo[1]}`];
+        return findNeighbors(board, firstPo, 1, prevArr, word);
       });
+      if (success) {
+        returnArr.push(word);
+      }
     }
   });
   return returnArr;
 }
 
-const findNeighbors = (board, position, secondLetter) => {
-  let arr = [];
+const findNeighbors = (board, position, currentWordIdx, prevArr, word) => {
+  let neighbors = [];
+  let nextPrev = prevArr;
   for (
-    let i = position[0] - 1 < 0 ? 0 : position[0] - 1;
-    i <= (position[0] + 1 < board.length ? position[0] + 1 : board.length);
+    let i = Math.max(0, position[0] - 1);
+    i <= Math.min(position[0] + 1, board.length - 1);
     i++
   ) {
     for (
-      let j = position[1] - 1 < 0 ? 0 : position[1] - 1;
-      j <=
-      (position[1] + 1 < board[0].length ? position[1] + 1 : board[0].length);
+      let j = Math.max(0, position[1] - 1);
+      j <= Math.min(position[1] + 1, board[0].length - 1);
       j++
     ) {
-      console.log("all", i, j);
       if (
-        board[i][j] === secondLetter &&
-        !(i === position[0] && j === position[1])
+        board[i][j] === word[currentWordIdx] &&
+        !(i === position[0] && j === position[1]) &&
+        !prevArr.includes(`${i}:${j}`)
       ) {
-        console.log("passed", i, j);
-        arr.push([i, j]);
+        neighbors.push([i, j]);
       }
     }
   }
-  return arr;
+  if (neighbors.length > 0) {
+    if (currentWordIdx === word.length - 1) {
+      return true;
+    } else {
+      return neighbors.some(neighbor => {
+        let currentPrev = [...prevArr, `${neighbor[0]}:${neighbor[1]}`];
+        return findNeighbors(
+          board,
+          neighbor,
+          currentWordIdx + 1,
+          currentPrev,
+          word
+        );
+      });
+    }
+  } else {
+    return false;
+  }
 };
 
 const findLetterInBoard = (board, targetLetter) => {
@@ -82,25 +82,6 @@ const findLetterInBoard = (board, targetLetter) => {
   }
   return poArr;
 };
-console.log(
-  findLetterInBoard(
-    [
-      [1, 3, 3, 4, 5, 1, 2, 3],
-      [1, 2, 3, 4, 5, 1, 2, 3],
-      [1, 3, 3, 4, 5, 1, 2, 3]
-    ],
-    2
-  )
-);
 
-console.log(
-  findNeighbors(
-    [
-      [1, 3, 3, 4, 5, 1, 2, 3],
-      [2, 3, 3, 4, 5, 1, 2, 3],
-      [1, 3, 3, 4, 5, 1, 2, 3]
-    ],
-    [1, 0],
-    3
-  )
-);
+// Do not edit the line below.
+exports.boggleBoard = boggleBoard;
