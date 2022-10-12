@@ -13,6 +13,6 @@
     "mocha": "^6.2.2"
   },
   "devDependencies": {
-    "testem": "^2.14.0"
+    "testem": "^3.9.0"
   }
 }
