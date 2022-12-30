@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "jasmine": "^3.5.0",
-    "mocha": "^6.2.2"
+    "mocha": "^10.2.0"
   },
   "devDependencies": {
     "testem": "^2.14.0"
